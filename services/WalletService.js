@@ -1,4 +1,5 @@
 import Deposit from "../models/DepositModel.js";
+import Setting from "../models/SettingModel.js";
 
 const WalletService = {
   async add(userId, amount,type) {
@@ -21,6 +22,10 @@ const WalletService = {
       return [];
     }
     return {status : true,trnx}
+    },
+  async getConfig(){
+      const wallet = await Setting.findOne();
+    return {status : true,wallet : wallet?.paymentMethods?.crypto?.addresses}
     },
 };
 

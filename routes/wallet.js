@@ -25,5 +25,12 @@ router.get(
     res.status(200).json(result);
   }),
 );
+router.get(
+  "/list/config",
+  asyncHandler(async (req, res) => {
+    const result = await WalletService.getConfig();
+    res.status(200).json(result);
+  }),
+);
 
 export default router;

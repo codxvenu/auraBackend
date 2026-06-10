@@ -1,7 +1,7 @@
 import Cart from "../models/CartModel.js";
 import Orders from "../models/OrderModel.js";
 import User from "../models/UserModel.js";
-
+import randomGen from "../utils/randomGen.js"
 const OrderService = {
   async list(userId) {
     const Order = await Orders.find({ userId }).populate("products");
@@ -10,10 +10,13 @@ const OrderService = {
     }
     return { status: true, Order: Order };
   },
-  async add(userId, productIds,finalprice) {
+  async add(userId, productIds,finalprice,keys) {
+      const orderKeys = randomGen(keys);
+
       const order = await Orders.create({
       userId,
       products: [...productIds],
+      orderKeys,
       amount : finalprice
     });
     const user = await User.findOne({_id : userId})

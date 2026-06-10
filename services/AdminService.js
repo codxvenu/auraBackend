@@ -69,6 +69,13 @@ const AdminService = {
         product
       };
   },
+  async deleteProduct(id) {
+       const product = await Product.findByIdAndDelete(id);
+      return {
+        status: true,
+        message : `Product deleted successfully`,
+      };
+  },
 };
 
 export default AdminService;

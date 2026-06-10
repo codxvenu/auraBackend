@@ -78,11 +78,10 @@ router.post(
   }),
 );
 router.delete(
-  "/delete/:productId",
+  "/delete/product/:productId",
   asyncHandler(async (req, res) => {
-    const { userId } = req?.user
     const {productId} = req?.params
-    const result = await CartService.delete(userId,productId);
+    const result = await AdminService.deleteProduct(productId);
     res.status(200).json(result);
   }),
 );
