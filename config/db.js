@@ -1,16 +1,11 @@
-import mysql2 from "mysql2";
-import { env } from "./env.js";
+import mongoose from "mongoose";
 
-const db = mysql2
-  .createPool({
-    connectionLimit: 10,
-    host: env.host, // Use this instead of "localhost"
-    user: env.user,
-    password: env.password, // The same password
-    database: env.database,
-    connectTimeout: 30000, // Increase timeout to 30 seconds
-    timezone: "local",
-  })
-  .promise();
-
-export default db;
+export const connectDB = async () => {
+  try {
+    await mongoose.connect("mongodb://localhost:27017/aura");
+    console.log("Connected to MongoDB Successfully!!");
+  } catch (error) {
+    console.error("MongoDB Connection Failed:", error.message);
+    process.exit(1);
+  }
+};

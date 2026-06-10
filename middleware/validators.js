@@ -9,9 +9,9 @@ export const validator =(schema)=> (req,res,next)=>{
         body : req.body,
         params : req.params,
         query : req.query,
-        userId : req?.user?.id
+        userId : req?.user?.userId
     })
-    console.log(validate);
+    console.log(validate,"ss");
     
     req.validated = validate
     next()   

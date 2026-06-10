@@ -11,8 +11,8 @@ export const env = {
 //files
   uploadPath : process.env.uploadPath,
 //authentication
-  jwtSecret : process.env.jwtSecret,
+  jwtSecret : "lvm",
 //urls
-  frontend_url : process.env.frontend_url
+  frontend_url : "http://localhost:3000"
 };
 
