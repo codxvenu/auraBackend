@@ -2,6 +2,11 @@ import bcrypt from "bcrypt";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
+import { OAuth2Client } from 'google-auth-library';
+
+const GOOGLE_CLIENT_ID = "543341573542-o2j3ekg3enaq6l04n6eutgf5s43s7nld.apps.googleusercontent.com";
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
 
 const AuthService = {
   async register(userData) {
@@ -71,6 +76,49 @@ const AuthService = {
     return {
       status: true,
       token : token,
+      user: userObj,
+      message: "Login successful",
+    };
+  },
+  async Glogin(token) {
+
+      const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: GOOGLE_CLIENT_ID, // Rejects token if issued to a different app
+    });
+
+    // Extract the verified user details safely
+    const payload = ticket.getPayload();
+    
+    // Google's unique, persistent string identifier for this user
+    const googleId = payload['sub']; 
+    const { email,name } = payload;
+
+    const Curruser = await User.findOne({ email });
+    let user = Curruser
+    if (!Curruser) {
+     user = User.create({
+      fullname: name,
+      email,
+      password: googleId,
+    });
+    }
+    console.log(user)
+    const  authtoken = jwt.sign(
+        {
+          userId: user._id,
+          email: user.email,
+        },
+        env.jwtSecret,
+        {
+          expiresIn: "7d",
+        },
+      );
+    const userObj = user.toObject();
+    delete userObj.password;
+    return {
+      status: true,
+      token : authtoken,
       user: userObj,
       message: "Login successful",
     };

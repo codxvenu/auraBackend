@@ -33,6 +33,20 @@ router.post(
   }),
 );
 router.post(
+  "/Glogin",
+  asyncHandler(async (req, res) => {
+    const { token } = req?.body;
+    const result = await AuthService.Glogin(token);
+    res.cookie("token", result.token, {
+        httpOnly: true,
+        secure: false, // true in production HTTPS
+        sameSite: "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+      });
+    res.status(200).json(result);
+  }),
+);
+router.post(
   "/register",
   validator(RegisterSchema),
   asyncHandler(async (req, res) => {

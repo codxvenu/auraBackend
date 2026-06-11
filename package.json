@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "express-async-handler": "^1.2.0",
     "formidable-serverless": "^1.1.1",
+    "google-auth-library": "^10.7.0",
     "http": "^0.0.1-security",
     "jose": "^6.1.2",
     "jsonwebtoken": "^9.0.2",
