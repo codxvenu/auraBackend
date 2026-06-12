@@ -29,6 +29,13 @@ router.get(
     res.status(200).json(result);
   }),
 );
+router.get(
+  "/list/tickets",
+  asyncHandler(async (req, res) => {
+    const result = await AdminService.getTickets();
+    res.status(200).json(result);
+  }),
+);
 router.post(
   "/updateBalance",
   asyncHandler(async (req, res) => {

@@ -3,6 +3,7 @@ import User from "../models/UserModel.js"
 import Deposit from "../models/DepositModel.js"
 import Setting from "../models/SettingModel.js";
 import Product from "../models/ProductModel.js";
+import Ticket from "../models/TicketModel.js";
 const AdminService = {
   async getUsers() {
       const users = await User.find();
@@ -16,6 +17,13 @@ const AdminService = {
       return {
         status: true,
         deposits
+      };
+  },
+  async getTickets() {
+      const tickets = await Ticket.find({status : "open"}).populate("chats");
+      return {
+        status: true,
+        tickets
       };
   },
   async getPaymentDetails() {
