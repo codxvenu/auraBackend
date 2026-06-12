@@ -2,11 +2,12 @@ import Deposit from "../models/DepositModel.js";
 import Setting from "../models/SettingModel.js";
 
 const WalletService = {
-  async add(userId, amount,type) {
+  async add(userId, amount,type,fileId) {
     const deposit = await Deposit.create({
       userId,
       amount,
       type,
+      fileId,
       status: "pending",
     });
 

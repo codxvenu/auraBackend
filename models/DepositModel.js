@@ -17,6 +17,9 @@ const depositSchema = new mongoose.Schema(
     trxid: {
       type: String,
     },
+    fileId: {
+      type: String,
+    },
     type: {
       type: String,
       enum: ["deposit", "spending"],

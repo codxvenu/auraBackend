@@ -6,6 +6,7 @@ import walletRouter from "./wallet.js"
 import orderRouter from "./order.js"
 import ticketRouter from "./ticket.js"
 import adminRouter from "./admin.js"
+import fileRouter from "./file.js"
 const router = Router()
 
 
@@ -17,5 +18,5 @@ router.use("/product",productRouter)
 router.use("/wallet",walletRouter)
 router.use("/order",orderRouter)
 router.use("/ticket",ticketRouter)
-
+router.use("/file",fileRouter)
 export default router

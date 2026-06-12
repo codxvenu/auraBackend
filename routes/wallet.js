@@ -11,9 +11,9 @@ router.post(
   "/add",
   validator(WalletAddSchema),
   asyncHandler(async (req, res) => {
-    const { amount ,type} = req?.validated.body;
+    const { amount ,type,fileId} = req?.validated.body;
     const userId = req?.validated.userId;
-    const result = await WalletService.add(userId,amount,type);
+    const result = await WalletService.add(userId,amount,type,fileId);
     res.status(200).json(result);
   }),
 );
