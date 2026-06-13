@@ -1,14 +1,14 @@
 import Cart from "../models/CartModel.js";
 
 const CartService = {
-  async addItem(productId, userId) {
+  async addItem(productId, userId,quantity=1) {
     let cart = await Cart.findOne({ userId });
 
     // Create cart if it doesn't exist
     if (!cart) {
       cart = await Cart.create({
         userId,
-        items: [{ productId, quantity: 1 }],
+        items: [{ productId, quantity}],
       });
 
       return cart;
@@ -19,11 +19,11 @@ const CartService = {
     );
 
     if (existingItem) {
-      existingItem.quantity += 1;
+      existingItem.quantity += quantity;
     } else {
       cart.items.push({
         productId,
-        quantity: 1,
+        quantity,
       });
     }
 

@@ -11,9 +11,9 @@ router.post(
   "/add",
   validator(CartAddItemSchema),
   asyncHandler(async (req, res) => {
-    const { itemId } = req?.validated.body;
+    const { itemId ,quantity} = req?.validated.body;
     const userId = req?.validated.userId;
-    const result = await CartService.addItem(itemId,userId);
+    const result = await CartService.addItem(itemId,userId,quantity);
     res.status(200).json(result);
   }),
 );
